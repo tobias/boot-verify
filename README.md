@@ -36,6 +36,8 @@ $ boot verify
 
 ## License
 
-Copyright (C) 2015 Tobias Crawley.
+Copyright (C) 2015 Tobias Crawley. 
 
-Licensed under the Eclipse Public License v1.0
+Licensed under the Eclipse Public License v1.0. Includes code from
+[Leiningen](https://github.com/technomancy/leiningen/), which is also
+licensed under Eclipse Public License v1.0.
