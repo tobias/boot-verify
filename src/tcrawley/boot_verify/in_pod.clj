@@ -1,8 +1,8 @@
 (ns tcrawley.boot-verify.in-pod
   (:require boot.aether
-            [boot.from.io.aviso.ansi :as ansi]
-            [boot.gpg :as gpg]
-            [boot.util :as util]
+            [boot.from.io.aviso.ansi     :as ansi]
+            [boot.gpg                    :as gpg]
+            [boot.util                   :as util]
             [cemerick.pomegranate.aether :as aether])
   (:import org.sonatype.aether.resolution.DependencyResolutionException))
 
@@ -45,11 +45,11 @@
   (try
     (->> (aether/resolve-dependencies
            :repositories (map ignore-checksum repositories)
-           :mirrors mirrors
-           :coordinates [(-> dep
-                           dep-spec->map
-                           (assoc :extension "jar.asc")
-                           map->dep-spec)])
+           :mirrors      mirrors
+           :coordinates  [(-> dep
+                            dep-spec->map
+                            (assoc :extension "jar.asc")
+                            map->dep-spec)])
       (aether/dependency-files)
       (filter #(.endsWith (.getName %) ".asc"))
       (first))
@@ -60,9 +60,9 @@
     (check-signature signature)
     :unsigned))
 
-(def color-fns {:signed ansi/bold-cyan
-                :unsigned ansi/bold-red
-                :no-key ansi/bold-yellow
+(def color-fns {:signed        ansi/bold-cyan
+                :unsigned      ansi/bold-red
+                :no-key        ansi/bold-yellow
                 :bad-signature ansi/bold-yellow})
 
 (defn print-verification [{:keys [result dep]}]

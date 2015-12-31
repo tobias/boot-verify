@@ -1,8 +1,8 @@
 (ns tcrawley.boot-verify
   {:boot/export-tasks true}
-  (:require [boot.core :as core]
-            [boot.pod  :as pod]
-            [boot.util :as util]
+  (:require [boot.core       :as core]
+            [boot.pod        :as pod]
+            [boot.util       :as util]
             [clojure.java.io :as io]))
 
 (defn ^:private load-data [resource-name]

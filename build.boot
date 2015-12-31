@@ -3,23 +3,23 @@
   :dependencies '[[adzerk/bootlaces "0.1.12" :scope "test"]])
 
 (require
-  '[boot.util :as util]
-  '[adzerk.bootlaces :refer :all :exclude [build-jar] :as laces]
-  '[clojure.java.io :as io])
+  '[boot.util        :as util]
+  '[adzerk.bootlaces :as laces]
+  '[clojure.java.io  :as io])
 
 (def +version+ "0.1.0")
 
-(bootlaces! +version+)
+(laces/bootlaces! +version+)
 
 (task-options!
-  pom {:project 'tcrawley/boot-verify
-       :version +version+
+  pom {:project     'tcrawley/boot-verify
+       :version     +version+
        :description "Boot task for verifying dependency signatures"
-       :url "https://github.com/tobias/boot-verify"
-       :scm {:name "git"
-             :url "https://github.com/tobias/boot-verify"}
-       :license {"Eclipse Public License - v 1.0"
-                 "http://www.eclipse.org/legal/epl-v10.html"}})
+       :url         "https://github.com/tobias/boot-verify"
+       :scm         {:name "git"
+                     :url  "https://github.com/tobias/boot-verify"}
+       :license     {"Eclipse Public License - v 1.0"
+                     "http://www.eclipse.org/legal/epl-v10.html"}})
 
 (def in-pod-dependencies
   [['tcrawley/boot-verify +version+]])
@@ -32,6 +32,8 @@
         (pr-str in-pod-dependencies))
       (-> fileset (add-resource tgt) commit!))))
 
-(deftask build-jar [] (comp (write-pod-dependencies) (laces/build-jar)))
+(deftask build-jar []
+  (comp (write-pod-dependencies) (laces/build-jar)))
 
-(deftask release [] (comp (write-pod-dependencies) (pom) (jar) (push-release)))
+(deftask release []
+  (comp (write-pod-dependencies) (pom) (jar) (laces/push-release)))
